@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Book Store</title>
+    <style>
+        body 
+        {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            padding: 50px;
+        }
+        
+        h1 
+        {
+            margin-bottom: 20px;
+        }
+        
+        .container 
+        {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+            width: 300px;
+        }
+        
+        select, input[type="text"], input[type="password"], input[type="submit"] 
+        {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        input[type="submit"] 
+        {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+        
+        input[type="submit"]:hover 
+        {
+            background-color: #45a049;
+        }
+        
+        .blinking-link 
+        {
+            font-size: 15px;
+            color: blue;
+            text-decoration: none;
+            animation: blink 1.5s infinite;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        
+        .blinking-link:hover 
+        {
+            color: red;
+        }
+        
+        @keyframes blink 
+        {
+            0% { opacity: 1; }
+            50% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        #countdown 
+        {
+            font-size: 20px;
+            color: purple;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to Online Book Store</h1>
+    
+    <div class="container">
+        <label for="books">Choose a book category:</label>
+        <select id="books" name="books">
+            <option value="fiction">Fiction</option>
+            <option value="non-fiction">Non-Fiction</option>
+            <option value="mystery">Mystery</option>
+            <option value="sci-fi">Science Fiction</option>
+            <option value="fantasy">Fantasy</option>
+            <option value="bio">Autobiography</option>
+        </select>
+    </div>
+    
+    <br><br>
+    
+    <div class="container">
+        <h2>Login</h2>
+        <form onsubmit="return validateForm()">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" placeholder="Enter your username">
+            
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password">
+            
+            <input type="submit" value="Login">
+        </form>
+        
+        <a href="file:///C:/Users/emili/OneDrive/Desktop/Codes/Functions/Web%20page/register.html" class="blinking-link">New Registration</a>
+    </div>
+    <p>Time Left for Our Grand Library Annual Day!</p>
+    <div id="countdown"></div>
+    <script>
+        const eventDate = new Date("April 15, 2025 12:00:00").getTime();
+        const timer = setInterval(function() 
+        {
+            const now = new Date().getTime();
+            const timeLeft = eventDate - now;
+            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+            document.getElementById("countdown").innerHTML = 
+                days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+            if (timeLeft < 0) 
+            {
+                clearInterval(timer);
+                document.getElementById("countdown").innerHTML = "Event Started!";
+            }
+        }, 1000);
+        function validateUsername() 
+        {
+          let username = document.getElementById("username").value;
+          if (username === "") 
+          {
+            alert("Username cannot be empty!");
+            return false;
+          } 
+          return true;
+        }
+        function validatePassword() 
+        {
+           let password = document.getElementById("password").value;
+           let regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+           if (!regex.test(password)) 
+           {
+              alert("Password must be at least 8 characters, including a letter and a number.");
+              return false;
+           }
+           return true;
+        }
+        function validateForm() 
+        {
+            if (validateUsername() && validatePassword()) 
+            {
+                return true; 
+            }
+            return false;
+        }
+    </script>
+</body>
+</html>
